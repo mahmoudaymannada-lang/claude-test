@@ -13,7 +13,7 @@ Two modes, picked automatically:
             includes scores, 100 requests a minute.
   - RSS:    otherwise it reads Reddit's public RSS feeds. No key needed.
             Slow (Reddit rate-limits RSS hard), no scores, home connection
-            only. One question takes about 1 to 2 minutes.
+            only. One question takes about 2 to 3 minutes.
 """
 import base64
 import html
@@ -32,7 +32,7 @@ KEYED = all(os.environ.get(k) for k in (
     "REDDIT_CLIENT_ID", "REDDIT_CLIENT_SECRET", "REDDIT_USERNAME", "REDDIT_PASSWORD"))
 POST_LIMIT = 15 if KEYED else 8
 COMMENT_LIMIT = 20
-PAUSE = 2 if KEYED else 8  # seconds between requests
+PAUSE = 2 if KEYED else 12  # seconds between requests
 ATOM = "{http://www.w3.org/2005/Atom}"
 
 
@@ -131,7 +131,8 @@ def rss(url):
 
 def run_rss(question):
     q = urllib.parse.urlencode({"q": question, "sort": "relevance", "limit": POST_LIMIT})
-    posts = rss(f"https://www.reddit.com/search.rss?{q}")[:POST_LIMIT]
+    posts = [p for p in rss(f"https://www.reddit.com/search.rss?{q}")
+             if "/comments/" in p["link"]][:POST_LIMIT]
     if not posts:
         print("No posts found.")
         return
