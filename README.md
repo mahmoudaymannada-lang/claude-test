@@ -1,13 +1,37 @@
-# claude-test
+# ask-threads
 
-## What this repo is for
+Ask Reddit a question from the terminal and read what people actually say.
 
-This is a sandbox for trying out Claude Code.
+## What it does
 
-It has no application code. Use it to:
+- Takes a question as a command-line argument.
+- Searches public Reddit posts for it.
+- Pulls the top comments on each matching post.
+- Prints everything to the terminal for reading.
 
-- Test Claude Code sessions end to end: branch, edit, commit, push.
-- Check that the GitHub connection and permissions work.
-- Try prompts, skills and workflows without touching a real project.
+Read-only. It never posts, votes, messages, or stores user data.
 
-Anything here can be changed or deleted. Nothing depends on it.
+## Setup
+
+1. Create a script-type app at https://www.reddit.com/prefs/apps
+2. Set four environment variables:
+
+```bash
+export REDDIT_CLIENT_ID=...
+export REDDIT_CLIENT_SECRET=...
+export REDDIT_USERNAME=...
+export REDDIT_PASSWORD=...
+```
+
+3. Run it:
+
+```bash
+python3 ask.py "best budget microphone for podcasting"
+```
+
+No dependencies beyond Python 3.
+
+## Limits
+
+- About 10 to 25 requests per question. Reddit allows 100 per minute.
+- Personal, non-commercial use only.
