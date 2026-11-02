@@ -29,7 +29,7 @@ export REDDIT_PASSWORD=...
 python3 ask.py "best budget microphone for podcasting"
 ```
 
-No dependencies beyond Python 3. Without the four variables it falls back to Reddit's public pages, which works from a home connection only.
+No dependencies beyond Python 3. Without the four variables it falls back to Reddit RSS feeds. Slower, no scores, home connection only.
 
 ## Limits
 
